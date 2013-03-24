@@ -25,3 +25,25 @@ This example monkeypatch's String to help build patterns
             * repetition: "someLiteral".repeat()
         * inputString - String to be match against
     3. regex.compile() returns the result
+
+###example:
+```javascript
+result1 = regex.compile("a".repeat().and("abc"), "bc"); // should fail
+result2 = regex.compile("a".repeat().and("abc"), "abc"); // should pass
+
+console.log(result1); // output
+                        /* Input: "bc"
+                           Pattern: regex.SequenceExpression
+                             _expression1: regex.RepetitionExpression
+                             _expression2: regex.LiteralExpression
+                           Result: "no match found"
+                         */
+console.log(result2); // output
+                        /* Input: "abc"
+                           Pattern: regex.SequenceExpression
+                             _expression1: regex.RepetitionExpression
+                             _expression2: regex.LiteralExpression
+                           Result: "found match"
+                         */
+```
+
