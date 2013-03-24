@@ -1,19 +1,27 @@
+#A regex interpreter in Javascript
 
->a regex interpreter in Javascript
+##This is a translation of the interpreter pattern example from GOF Design Patterns 
+(originally written in Smalltalk)
 
-this is a translation of a interpreter pattern example from GOF Design Patterns (originally written in Smalltalk)
+###root obj:
+    regex
 
-root obj: regex
-
-main obj types defined:
+###main obj types defined:
     RegularExpression (parent)
     SequenceExpression
     AlternationExpression
     RepetitionExpression
     LiteralExpression
 
-this example monkeypatch's type String to help build pattern operations
+This example monkeypatch's type String to help build pattern operations
 
-to use compile redexInterpreter and then call:
-    1) regex.compile() with a pattern and an input of type String to match against
-    2) regex.compile() returns a the result
+###To use:
+    1. run the redexInterpreter.js file:
+    2. envoke regex.compile(pattern, inputString)
+        * pattern - expressions available (can be chained):
+            * literal: ""
+            * alternation: "someLiteral".and("someLiteral")
+            * sequence: "someLiteral".and("someLiteral")
+            * repetition: "someLiteral".repeat()
+        * inputString - String to be match against
+    3. regex.compile() returns the result
