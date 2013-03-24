@@ -7,20 +7,20 @@
     regex
 
 ###main obj types defined:
-    RegularExpression (parent)
-    SequenceExpression
-    AlternationExpression
-    RepetitionExpression
-    LiteralExpression
+    regex.RegularExpression (parent)
+    regex.SequenceExpression
+    regex.AlternationExpression
+    regex.RepetitionExpression
+    regex.LiteralExpression
 
-This example monkeypatch's type String to help build pattern operations
+This example monkeypatch's String to help build patterns
 
 ###To use:
     1. run the redexInterpreter.js file:
     2. envoke regex.compile(pattern, inputString)
         * pattern - expressions available (can be chained):
             * literal: ""
-            * alternation: "someLiteral".and("someLiteral")
+            * alternation: "someLiteral".or("someLiteral")
             * sequence: "someLiteral".and("someLiteral")
             * repetition: "someLiteral".repeat()
         * inputString - String to be match against
