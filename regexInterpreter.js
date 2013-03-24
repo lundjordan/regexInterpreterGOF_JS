@@ -12,6 +12,7 @@ regex.Stream.prototype.nextAvailable = function(pointerAdvanceLength) {
     this.pointerIndex = finishSubstrIndex;
     return returnString;
 };
+//
 
 // abstract parent
 regex.RegularExpression = function() {
@@ -32,7 +33,6 @@ regex.RegularExpression.prototype.asRExp = function() {
 };
 //
 
-
 // XXX HARDCORE JS MONKEY-PATCHING
 String.prototype.and = function(aNode) {
     return new regex.SequenceExpression(this.asRExp(), aNode.asRExp());
@@ -47,6 +47,7 @@ String.prototype.asRExp = function(inputState) {
     return new regex.LiteralExpression(this.valueOf());
 };
 //
+
 
 // literalExpression
 regex.LiteralExpression = function(literal) {
@@ -115,7 +116,6 @@ regex.RepetitionExpression.prototype.match = function(inputState) {
 };
 
 
-
 // regEx1 = "a".repeat().and("abc").or("dog");
 
 regex.compile = function(pattern, stringInput) {
@@ -125,16 +125,35 @@ regex.compile = function(pattern, stringInput) {
         streamingCharsUnmatched = matches[i].stringValue.length -
             matches[i].pointerIndex;
         if (streamingCharsUnmatched === 0) {
-            return "result: found match\nPattern: " + pattern + 
-                "\nInput: " + stringInput + "\n";
+            return {
+                Result: "found match",
+                Pattern: pattern,
+                Input: stringInput
+            }
         }
     }
-    return "result: no match found\nPattern: " + pattern + 
-        "\nInput: " + stringInput + "\n";
+    return {
+        Result: "no match found",
+        Pattern: pattern,
+        Input: stringInput
+    }
 };
 
-result = regex.compile("a".repeat().and("abc"), "aaa");
-result2 = regex.compile("a".repeat().and("abc"), "aaaabc");
-
-console.log(result);
+// some testing examples
+result1 = regex.compile("a".repeat().and("abc"), "aaa"); // should fail
+result2 = regex.compile("a".repeat().and("abc"), "bc"); // should fail
+result3 = regex.compile("a".repeat().and("abc"), "abc"); // should pass
+result4 = regex.compile("a".repeat().and("abc"), "aaabc"); // should pass
+result5 = regex.compile("cat".or("dog"), "catdog"); // should fail
+result6 = regex.compile("cat".or("dog"), "catt"); // should fail
+result7 = regex.compile("cat".or("dog"), "dog"); // should pass
+result8 = regex.compile("cat".or("dog"), "cat"); // should pass
+console.log(result1);
 console.log(result2);
+console.log(result3);
+console.log(result4);
+console.log(result5);
+console.log(result6);
+console.log(result7);
+console.log(result8);
+//
